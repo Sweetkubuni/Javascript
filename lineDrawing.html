@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Drawing tool</title>
+	<link rel="stylesheet" type="text/css" href="app.css">
+</head>
+
+	<body onload="init();">
+		<canvas id="demo" width="1000" height="1000">
+		<script>
+		var canvas = null;
+		var pen = null;
+		function PEN( color , thickness )
+		{
+			this.color = color;
+			this.thickness = thickness;
+			this.isdrawing = 0;
+		}
+		
+		function init()
+		{
+		  canvas = document.getElementById('demo');
+		  var ctx = canvas.getContext('2d');
+		  var pen = new PEN('#000000', 4 );
+		  
+		  canvas.onmousedown = function(e)
+		  {
+			pen.isdrawing = 1;
+			ctx.lineWidth = pen.thickness;
+			ctx.moveTo(e.clientX, e.clientY);
+		  };
+		  
+		  canvas.onmousemove = function(e) 
+		  {
+			  if (pen.isdrawing) 
+			  {
+				ctx.lineTo(e.clientX, e.clientY);
+				ctx.stroke();
+			  }
+		  };
+		  
+		  canvas.onmouseup = function() 
+		   {
+				pen.isdrawing = 0;
+			};
+		}
+		</script>
+		</canvas>
+		
+	</body>
+</html>
